@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { View, Text, StyleSheet, Alert, ScrollView, FlatList } from 'react-native';
+import { View, Text, StyleSheet, Alert, ScrollView, FlatList, Dimensions, Platform} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import * as ScreenOrientation from 'expo-screen-orientation';
 
 import NumberContainer from '../components/NumberContainer';
 import Cards from '../components/Card';
@@ -34,6 +35,8 @@ const renderListItem = (listLenght, itemData) => (
 );
 
 const GameScreen = props => {
+
+    //ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
 
     const intialGuess = generateRandomBetween(1, 100, props.userChoice);
     const [currentGuess, setCurrentGuess] = useState(intialGuess);
@@ -102,7 +105,7 @@ const styles = StyleSheet.create({
     buttonContainer: {
         flexDirection: 'row',
         justifyContent: 'space-around',
-        marginTop: 20,
+        marginTop: Dimensions.get('window').height > 600 ? 20: 10,
         width: 400,
         maxWidth: '90%',
         alignItems: 'center'
